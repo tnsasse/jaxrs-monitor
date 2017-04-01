@@ -1,4 +1,4 @@
-package net.byte23.jaxrsmonitor.control;
+package com.github.tnsasse.jaxrsmonitor.control;
 
 import java.io.IOException;
 import javax.annotation.Priority;

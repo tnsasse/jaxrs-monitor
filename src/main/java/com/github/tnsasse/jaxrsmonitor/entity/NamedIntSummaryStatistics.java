@@ -1,4 +1,4 @@
-package net.byte23.jaxrsmonitor.entity;
+package com.github.tnsasse.jaxrsmonitor.entity;
 
 import java.util.HashMap;
 import java.util.IntSummaryStatistics;

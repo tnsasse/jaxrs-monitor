@@ -1,4 +1,4 @@
-package net.byte23.jaxrsmonitor.entity;
+package com.github.tnsasse.jaxrsmonitor.entity;
 
 import javax.json.Json;
 import javax.json.JsonObject;

@@ -1,4 +1,4 @@
-package net.byte23.jaxrsmonitor.control;
+package com.github.tnsasse.jaxrsmonitor.control;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
@@ -11,10 +11,10 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import net.byte23.jaxrsmonitor.entity.AppMetrics;
-import net.byte23.jaxrsmonitor.entity.NamedIntSummaryStatistics;
-import net.byte23.jaxrsmonitor.entity.ResponseMetrics;
-import net.byte23.jaxrsmonitor.entity.SystemMetrics;
+import com.github.tnsasse.jaxrsmonitor.entity.AppMetrics;
+import com.github.tnsasse.jaxrsmonitor.entity.NamedIntSummaryStatistics;
+import com.github.tnsasse.jaxrsmonitor.entity.ResponseMetrics;
+import com.github.tnsasse.jaxrsmonitor.entity.SystemMetrics;
 
 /**
  * Gathers metrics about the application and runtime

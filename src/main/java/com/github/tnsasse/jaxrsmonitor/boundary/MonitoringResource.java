@@ -1,4 +1,4 @@
-package net.byte23.jaxrsmonitor.boundary;
+package com.github.tnsasse.jaxrsmonitor.boundary;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -9,7 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import net.byte23.jaxrsmonitor.control.MetricsCollector;
+import com.github.tnsasse.jaxrsmonitor.control.MetricsCollector;
 
 /**
  * Exposes metrics about the application and runtime via JAX-RS

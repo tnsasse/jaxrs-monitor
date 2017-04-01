@@ -53,6 +53,10 @@ Per HTTP request URI and HTTP method:
   * Maximum response time in milliseconds ("max")
   * Average response time in milliseconds ("avg")
 
+## Sample application
+Check out [jaxrs-monitor-sample](https://github.com/tnsasse/jaxrs-monitor-sample) for a working
+demo of the application.
+
 ## Sample output
 
 All metrics:

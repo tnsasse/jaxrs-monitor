@@ -1,2 +1,112 @@
 # jaxrs-monitor
-A tiny monitoring plugin for JavaEE applications
+A tiny monitoring plugin for JavaEE applications. jaxrs-monitor collects and exposes
+metrics about the application, its runtime and response times. Metrics are exposed
+via a JAX-RS resource in JSON format.
+
+This tool provides easy means to integrate your application into a centralized
+monitoring infrastructure.
+
+Make sure that your application server provides JAX-RS, JSON and EJB implementations.
+jaxrs-monitor was tested on IBM WebSphere Liberty Profile (webProfile7).
+
+This application is licensed under the BSD 2-clause licence.
+
+## Usage
+Include the following in your Maven Pom File:
+    
+    <dependency>
+        <groupId>net.byte23</groupId>
+        <artifactId>jaxrs-monitor</artifactId>
+        <version>VERSION_GOES_HERE</version>
+    </dependency>
+
+Substitute `VERSION_GOES_HERE` with the current version of your choice.
+
+jaxrs-monitor provides a servlet filter to collect response times and will expose 
+metrics via the path `/jaxrs-monitor` so make sure to avoid collisions.
+
+## Build / Install
+You can clone this repository and build it with maven:
+
+    git clone https://github.com/tnsasse/jaxrs-monitor.git
+    cd jaxrs-monitor
+    mvn clean install
+
+## Exposed metrics
+jaxrs-monitor exposes the following metrics, divided into categories:
+
+### System metrics
+  * Number of processors available to the jvm ("cores")
+  * Available memory in megabytes ("availableMemory")
+  * Used memory in megabytes ("usedMemory")
+  * Average system load ("loadAverage") 
+
+#### Application metrics
+  * Application startup time in ISO8601 ("startupTime")
+  * Uptime since application start in milliseconds ("uptime")
+
+#### HTTP response times
+Per HTTP request URI and HTTP method:
+
+  * Number of requests ("count")
+  * Minimum response time ("min")
+  * Maximum response time ("max")
+  * Average response time ("avg")
+
+## Sample output
+
+All metrics:
+    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor
+
+    {
+        "system" : {
+            "cores" : 2,
+            "availableMemory" : 26,
+            "usedMemory" : 49,
+            "loadAverage" : 0.65
+        },
+        "app" : { 
+            "startupTime" : "2017-04-01T12:59:01.660Z[UTC]",
+            "uptime" : 42648
+        },
+        "response" : {
+            "/orders" : { 
+                "GET" : {"count":11,"min":3,"max":18,"avg":7},
+                "POST" : {"count":4,"min":23,"max":83,"avg":13}
+            },
+            "/profile" : {
+                "GET" : {"count":14,"min":2,"max":15,"avg":8}
+            }
+        }
+    }
+
+Only system metrics:
+    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor/system
+
+    {
+        "cores" : 2,
+        "availableMemory" : 26,
+        "usedMemory" : 49,
+        "loadAverage" : 0.65
+    }
+
+Only app metrics:
+    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor/app
+
+    {
+        "startupTime" : "2017-04-01T12:59:01.660Z[UTC]",
+        "uptime" : 42648
+    }
+
+Only response times:
+    GET http://URL_PORT/CONTEXT_ROOT/jaxrs-monitor/response
+
+    {
+        "/orders" : { 
+            "GET" : {"count":11,"min":3,"max":18,"avg":7},
+            "POST" : {"count":4,"min":23,"max":83,"avg":13}
+        },
+        "/profile" : {
+                "GET" : {"count":14,"min":2,"max":15,"avg":8}
+        }
+    }

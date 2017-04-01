@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.tnsasse</groupId>
     <artifactId>jaxrs-monitor</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     
     <name>jaxrs-monitor</name>
@@ -21,7 +21,7 @@
         <connection>scm:git:git@github.com:tnsasse/jaxrs-monitor.git</connection>
         <developerConnection>scm:git:git@github.com:tnsasse/jaxrs-monitor.git</developerConnection>
         <url>git@github.com:tnsasse/jaxrs-monitor.git</url>
-      <tag>v1.0.0</tag>
+      <tag>v1.0.1</tag>
   </scm>
     
     <licenses>
@@ -92,7 +92,6 @@
                 <configuration>
                     <serverId>ossrh</serverId>
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <stagingProfileId>19375019933d12</stagingProfileId>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>

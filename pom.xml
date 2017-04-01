@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.byte23</groupId>
+    <groupId>org.github.tnsasse</groupId>
     <artifactId>jaxrs-monitor</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     
     <name>jaxrs-monitor</name>
     <url>https://github.com/tnsasse/jaxrs-monitor</url>
+    <description>A monitoring module for JavaEE JAX-RS applications</description>
+    
+    <developers>
+        <developer>
+            <name>Tobias N. Sasse</name>
+            <email>tobi@byte23.de</email>
+        </developer>
+    </developers>
+    
+    <scm>
+        <connection>scm:git:git@github.com:tnsasse/jaxrs-monitor.git</connection>
+        <developerConnection>scm:git:git@github.com:tnsasse/jaxrs-monitor.git</developerConnection>
+        <url>git@github.com:tnsasse/jaxrs-monitor.git</url>
+    </scm>
     
     <licenses>
         <license>

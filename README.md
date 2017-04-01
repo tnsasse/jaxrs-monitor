@@ -15,7 +15,7 @@ This application is licensed under the BSD 2-clause licence.
 Include the following in your Maven Pom File:
     
     <dependency>
-        <groupId>net.byte23</groupId>
+        <groupId>org.github.tnsasse</groupId>
         <artifactId>jaxrs-monitor</artifactId>
         <version>VERSION_GOES_HERE</version>
     </dependency>

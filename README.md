@@ -56,8 +56,8 @@ Per HTTP request URI and HTTP method:
 ## Sample output
 
 All metrics:
-    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor
 
+    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor
     {
         "system" : {
             "cores" : 2,
@@ -81,8 +81,8 @@ All metrics:
     }
 
 Only system metrics:
-    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor/system
 
+    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor/system
     {
         "cores" : 2,
         "availableMemory" : 26,
@@ -91,16 +91,16 @@ Only system metrics:
     }
 
 Only app metrics:
-    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor/app
 
+    GET http://URL:PORT/CONTEXT_ROOT/jaxrs-monitor/app
     {
         "startupTime" : "2017-04-01T12:59:01.660Z[UTC]",
         "uptime" : 42648
     }
 
 Only response times:
-    GET http://URL_PORT/CONTEXT_ROOT/jaxrs-monitor/response
 
+    GET http://URL_PORT/CONTEXT_ROOT/jaxrs-monitor/response
     {
         "/orders" : { 
             "GET" : {"count":11,"min":3,"max":18,"avg":7},

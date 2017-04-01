@@ -49,9 +49,9 @@ jaxrs-monitor exposes the following metrics, divided into categories:
 Per HTTP request URI and HTTP method:
 
   * Number of requests ("count")
-  * Minimum response time ("min")
-  * Maximum response time ("max")
-  * Average response time ("avg")
+  * Minimum response time in milliseconds ("min")
+  * Maximum response time in milliseconds ("max")
+  * Average response time in milliseconds ("avg")
 
 ## Sample output
 

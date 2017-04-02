@@ -2,5 +2,5 @@
 if [ "$TRAVIS_BRANCH" = 'master' ] && [ "$TRAVIS_PULL_REQUEST" == 'false' ]; then
     ls -all cd/
     openssl aes-256-cbc -K $encrypted_e3bc588545dd_key -iv $encrypted_e3bc588545dd_iv -in cd/codesigning.asc.enc -out cd/codesigning.asc -d    
-    gpg --fast-import cd/codesigning.asc
+    gpg --fast-import --batch cd/codesigning.asc
 fi

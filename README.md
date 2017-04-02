@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tnsasse/jaxrs-monitor.svg?branch=master)](https://travis-ci.org/tnsasse/jaxrs-monitor)
+
 # jaxrs-monitor
 A tiny monitoring plugin for JavaEE applications. jaxrs-monitor collects and exposes
 metrics about the application, its runtime and response times. Metrics are exposed

@@ -27,6 +27,28 @@ Substitute `VERSION_GOES_HERE` with the current version of your choice.
 jaxrs-monitor provides a servlet filter to collect response times and will expose 
 metrics via the path `/jaxrs-monitor` so make sure to avoid collisions.
 
+You can configure the following parameters, by calling the `MonitorConfiguration` bean.
+
+  - Max monitoring depth: restrict the path depth that should be monitored for response times metrics.
+  - Enable/disable the app,  system and response metrics individually.
+  
+Example Configuration:
+
+```java
+    @Inject
+    MonitoringConfiguration configuration
+```
+
+Set the desired settings, see the Javadoc for more information:
+```java
+    configuration.setSystemMetricsEnabled(true);
+    configuration.setAppMetricsEnabled(true);
+    configuration.setResponseMetricsEnabled(true);
+    configuration.setMaxPathDepth(-1);
+
+```
+  
+
 ## Build / Install
 You can clone this repository and build it with maven:
 

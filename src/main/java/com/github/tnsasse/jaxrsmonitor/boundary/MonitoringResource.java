@@ -1,5 +1,7 @@
 package com.github.tnsasse.jaxrsmonitor.boundary;
 
+import com.github.tnsasse.jaxrsmonitor.control.MetricsCollector;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -9,7 +11,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import com.github.tnsasse.jaxrsmonitor.control.MetricsCollector;
 
 /**
  * Exposes metrics about the application and runtime via JAX-RS
@@ -21,34 +22,59 @@ import com.github.tnsasse.jaxrsmonitor.control.MetricsCollector;
 @Produces(MediaType.APPLICATION_JSON)
 public class MonitoringResource {
 
-    @Inject
-    MetricsCollector collector;
+  @Inject
+  MetricsCollector collector;
 
-    @GET
-    @Path("/")
-    public JsonObject all() {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        builder.add("system", this.collector.getSystemMetrics().toJson());
-        builder.add("app", this.collector.getAppMetrics().toJson());
-        builder.add("response", this.collector.getResponseMetrics().toJson());
-        return builder.build();
+  @Inject
+  MonitoringConfiguration configuration;
+
+  @GET
+  @Path("/")
+  public JsonObject all() {
+    JsonObjectBuilder builder = Json.createObjectBuilder();
+
+    if (configuration.isSystemMetricsEnabled()) {
+      builder.add("system", system());
     }
 
-    @GET
-    @Path("/system")
-    public JsonObject system() {
-        return this.collector.getSystemMetrics().toJson();
+    if (configuration.isAppMetricsEnabled()) {
+      builder.add("app", app());
     }
 
-    @GET
-    @Path("/app")
-    public JsonObject app() {
-        return this.collector.getAppMetrics().toJson();
+    if (configuration.isResponseMetricsEnabled()) {
+      builder.add("response", response());
     }
 
-    @GET
-    @Path("/response")
-    public JsonObject response() {
-        return this.collector.getResponseMetrics().toJson();
+    return builder.build();
+  }
+
+  @GET
+  @Path("/system")
+  public JsonObject system() {
+    if (configuration.isSystemMetricsEnabled()) {
+      return this.collector.getSystemMetrics().toJson();
+    } else {
+      return Json.createObjectBuilder().build();
     }
+  }
+
+  @GET
+  @Path("/app")
+  public JsonObject app() {
+    if (configuration.isAppMetricsEnabled()) {
+      return this.collector.getAppMetrics().toJson();
+    } else {
+      return Json.createObjectBuilder().build();
+    }
+  }
+
+  @GET
+  @Path("/response")
+  public JsonObject response() {
+    if (configuration.isResponseMetricsEnabled()) {
+      return this.collector.getResponseMetrics().toJson();
+    } else {
+      return Json.createObjectBuilder().build();
+    }
+  }
 }

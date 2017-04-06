@@ -1,6 +1,10 @@
 package com.github.tnsasse.jaxrsmonitor.control;
 
+import com.github.tnsasse.jaxrsmonitor.boundary.MonitoringConfiguration;
+
 import java.io.IOException;
+import java.util.logging.Logger;
+
 import javax.annotation.Priority;
 import javax.inject.Inject;
 import javax.servlet.Filter;
@@ -14,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.ext.Provider;
 
 /**
- * A filter to measure response times
- *
  * @author tnsasse
  */
 @WebFilter(filterName = "jaxrs-monitor response time measurement filter", urlPatterns = "/*")
@@ -23,39 +25,46 @@ import javax.ws.rs.ext.Provider;
 @Priority(0)
 public class ResponseTimeFilter implements Filter {
 
-    @Inject
-    MetricsCollector collector;
+  @Inject
+  MetricsCollector collector;
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        boolean isHttpRequest = false;
-        long startTime = System.currentTimeMillis();
+  @Inject
+  MonitoringConfiguration configuration;
 
-        String httpPath = null;
-        String httpMethod = null;
+  @Override
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    long startTime = System.currentTimeMillis();
+    chain.doFilter(request, response);
 
-        if (request instanceof HttpServletRequest) {
-            isHttpRequest = true;
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
-            httpPath = httpRequest.getPathInfo();
-            httpMethod = httpRequest.getMethod();
-        }
+    if (configuration.isResponseMetricsEnabled() && request instanceof HttpServletRequest) {
+      HttpServletRequest httpRequest = (HttpServletRequest) request;
+      final String httpPath = httpRequest.getPathInfo();
+      final String httpMethod = httpRequest.getMethod();
 
-        chain.doFilter(request, response);
+      if (httpPath != null && !httpPath.isEmpty() && isPathMonitored(httpPath)) {
+        int responseTime = (int) (System.currentTimeMillis() - startTime);
+        this.collector.countResponseTime(httpPath, httpMethod, responseTime);
+      }
+    }
+  }
 
-        if (isHttpRequest) {
-            if(httpPath != null && !httpPath.isEmpty()) {
-                int responseTime = (int) (System.currentTimeMillis() - startTime);
-                this.collector.countResponseTime(httpPath, httpMethod, responseTime);
-            }
-        }
+  private boolean isPathMonitored(final String httpPath) {
+    if (configuration.getMaxPathDepth() == -1) {
+      return true;
+    }
+    if (configuration.getMaxPathDepth() == 0) {
+      return false;
     }
 
-    @Override
-    public void destroy() {
-    }
+    long pathDepth = httpPath.codePoints().filter(ch -> ch == '/').count();
+    return pathDepth <= configuration.getMaxPathDepth();
+  }
 
-    @Override
-    public void init(FilterConfig config) throws ServletException {
-    }
+  @Override
+  public void destroy() {
+  }
+
+  @Override
+  public void init(FilterConfig config) throws ServletException {
+  }
 }
